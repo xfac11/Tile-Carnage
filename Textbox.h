@@ -17,6 +17,7 @@ public:
 	std::string getString()const;
 	bool getTypeMode()const;
 	void setTextSize(const int size);
+	void draw(sf::RenderWindow & window);
 	void update(sf::RenderWindow & window, sf::Event & theEvent, sf::View & view, sf::RectangleShape mouse);
 };
 #endif

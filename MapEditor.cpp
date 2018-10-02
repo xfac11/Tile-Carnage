@@ -57,10 +57,10 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 	this->theArrows[2].setPosition(view.getCenter().x, view.getCenter().y + view.getSize().y / 2 - 50);
 	this->theArrows[3].setPosition(view.getCenter().x - view.getSize().x / 2 + 20, view.getCenter().y);
 
-	this->hudForLoadNSaveNText.setSize(sf::Vector2f(this->textBox.getSize().x, (this->saveRect.getPosition().y+this->saveRect.getPosition().y) -this->textBox.getPosition().y ));
-	this->hudForLoadNSaveNText.setPosition(this->textBox.getPosition()-sf::Vector2f(0.0f,15.0f));
+	this->hudForLoadNSaveNText.setPosition(this->textBox.getPosition().x-10.0f,this->textBox.getPosition().y-15.0f);
 	this->loadRect.setPosition(this->textBox.getPosition().x +100,this->textBox.getPosition().y + this->loadRect.getSize().y+20.0f);
 	this->saveRect.setPosition(this->loadRect.getPosition().x + this->saveRect.getSize().x + 50.0f, this->textBox.getPosition().y + this->saveRect.getSize().y + 20.0f);
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && this->tileChange == false&&this->textBox.getTypeMode()==false)
 	{
 		this->theTileOptions.changeShowingTiles();
@@ -341,6 +341,8 @@ MapEditor::MapEditor()
 	this->saveRect.setFillColor(sf::Color::Magenta);
 	this->loadRect.setSize(sf::Vector2f(100.0f, 50.0f));
 	this->loadRect.setFillColor(sf::Color::Green);
+	this->hudForLoadNSaveNText.setSize(sf::Vector2f(this->textBox.getSize().x+20.0f, (this->saveRect.getSize().y*3)));// - this->textBox.getPosition().y));
+
 }
 
 MapEditor::~MapEditor()
@@ -372,9 +374,12 @@ void MapEditor::draw(sf::RenderWindow & window, float deltaTime, sf::View &view,
 
 	//theInputs.update(window, theEvent);
 	currentMap.update(window);
-	window.draw(this->hudForLoadNSaveNText);
+	
+	
 	this->textBox.update(window, theEvent, view, this->theMouse);
-	updateHUD(view,deltaTime);
+	updateHUD(view, deltaTime);
+	window.draw(this->hudForLoadNSaveNText);
+	this->textBox.draw(window);
 	window.draw(tileMenu);
 	
 	for (int i = 0;i < 4;i++)

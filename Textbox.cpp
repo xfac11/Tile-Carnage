@@ -34,10 +34,16 @@ void Textbox::setTextSize(const int size)
 	this->theText.setCharacterSize(size);
 }
 
+void Textbox::draw(sf::RenderWindow & window)
+{
+	window.draw(*this);
+	window.draw(theText);
+}
+
 void Textbox::update(sf::RenderWindow & window, sf::Event & theEvent, sf::View & view, sf::RectangleShape mouse)
 {
 	//this->setPosition(sf::Vector2f(100, 100)); //textbox fix view.getCenter();
-	setPosition(view.getCenter().x-view.getSize().x/2,(view.getCenter().y-view.getSize().y/2)+50.0f);
+	setPosition(view.getCenter().x-view.getSize().x/2+10.0f,(view.getCenter().y-view.getSize().y/2)+50.0f);
 	this->theText.setPosition(getPosition());
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && mouse.getGlobalBounds().intersects(getGlobalBounds()))
 		this->typeMode = true;
@@ -64,6 +70,5 @@ void Textbox::update(sf::RenderWindow & window, sf::Event & theEvent, sf::View &
 		isPressed = false;
 	}
 
-	window.draw(*this);
-	window.draw(theText);
+	
 }
