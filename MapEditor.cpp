@@ -61,6 +61,8 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 	this->loadRect.setPosition(this->textBox.getPosition().x +100,this->textBox.getPosition().y + this->loadRect.getSize().y+20.0f);
 	this->saveRect.setPosition(this->loadRect.getPosition().x + this->saveRect.getSize().x + 50.0f, this->textBox.getPosition().y + this->saveRect.getSize().y + 20.0f);
 
+	this->location.setPosition(sf::Vector2f(getMouseID().x*32.f, getMouseID().y*32.f));
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && this->tileChange == false&&this->textBox.getTypeMode()==false)
 	{
 		this->theTileOptions.changeShowingTiles();
@@ -101,9 +103,11 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 	{
 		if (mouseOnObject(saveRect))
 		{
+			sf::Uint8 light = 100;
+			this->saveRect.setFillColor(sf::Color(light, light, light));
 			if (textBox.getString() == "")
 			{
-				saveRect.setFillColor(sf::Color::Red);
+				//saveRect.setFillColor(sf::Color::Red);
 			}
 			else
 			{
@@ -113,9 +117,10 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 		}
 		if (mouseOnObject(loadRect))
 		{
+			sf::Uint8 light = 100;
+			this->loadRect.setFillColor(sf::Color(light, light, light));
 			if (textBox.getString() == "")
 			{
-				loadRect.setFillColor(sf::Color::Red);
 				currentMap.reset();
 			}
 			else
@@ -123,7 +128,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 				currentMap.reset();
 				if (currentMap.loadSheet(textBox.getString()) == true)
 				{
-					loadRect.setFillColor(sf::Color::Green);
+					//loadRect.setFillColor(sf::Color::Green);
 				}
 				else
 				{
@@ -131,8 +136,27 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 				}
 			}
 		}
+		
 	}
-	
+	else
+	{
+		//Neutral
+		sf::Uint8 light = 230;
+		this->loadRect.setFillColor(sf::Color(light, light, light));
+		this->saveRect.setFillColor(sf::Color(light, light, light));
+	}
+	if (mouseOnObject(this->saveRect)&& !sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		//Light up when mouse is over
+		sf::Uint8 light = 255;
+		this->saveRect.setFillColor(sf::Color(light, light, light));
+	}
+	else if (mouseOnObject(this->loadRect)&& !sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		//Light up when mouse is over
+		sf::Uint8 light = 255;
+		this->loadRect.setFillColor(sf::Color(light, light, light));
+	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) ) //make afunction
 	{
 		int pos = -1;
@@ -255,7 +279,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 
 MapEditor::MapEditor()
 {
-	this->hudForLoadNSaveNText.setFillColor(sf::Color::Black);
+	//this->hudForLoadNSaveNText.setFillColor(sf::Color::Black);
 	this->speedForMovingCamera = 500.0f;
 	this->prevId = 0;
 	this->temp = false;
@@ -274,7 +298,10 @@ MapEditor::MapEditor()
 	//tile menu
 	this->tileMenu.setFillColor(sf::Color(192, 192, 192)); //silver
 	this->tileMenu.setSize(sf::Vector2f(windowX(500), windowY(350)));
-
+	//Location mouse
+	this->location.setSize(sf::Vector2f(32.0f, 32.0f));
+	this->textureLocation.loadFromFile("textures/test.png");
+	this->location.setTexture(&this->textureLocation);
 	//theArrows
 	arrow[0].loadFromFile("textures/arrow-up.png");
 	arrow[1].loadFromFile("textures/arrow-right.png");
@@ -337,12 +364,17 @@ MapEditor::MapEditor()
 	this->tempBlock = new Tile(); //sätter default på tempblock för att den inte ska vara null
 
 	//Save & load
+	this->textureHudLoadSave.loadFromFile("textures/HudForLoadnSave.png");
+	this->textureLoadRect.loadFromFile("textures/LoadTexture.png");
+	this->textureSaveRect.loadFromFile("textures/SaveTexture.png");
 	this->saveRect.setSize(sf::Vector2f(100.0f, 50.0f));
-	this->saveRect.setFillColor(sf::Color::Magenta);
+	this->saveRect.setTexture(&this->textureSaveRect);
+	//this->saveRect.setFillColor(sf::Color::Magenta);
 	this->loadRect.setSize(sf::Vector2f(100.0f, 50.0f));
-	this->loadRect.setFillColor(sf::Color::Green);
+	this->loadRect.setTexture(&this->textureLoadRect);
+	//this->loadRect.setFillColor(sf::Color::Green);
 	this->hudForLoadNSaveNText.setSize(sf::Vector2f(this->textBox.getSize().x+20.0f, (this->saveRect.getSize().y*3)));// - this->textBox.getPosition().y));
-
+	this->hudForLoadNSaveNText.setTexture(&this->textureHudLoadSave);
 }
 
 MapEditor::~MapEditor()
@@ -371,7 +403,7 @@ void MapEditor::draw(sf::RenderWindow & window, float deltaTime, sf::View &view,
 		tempBlock->setPosition(theMouse.getPosition());
 		this->currentTileTypeText.setPosition(this->tempBlock->getPosition() + sf::Vector2f(7.0f, 0.0f));
 	}
-
+	window.draw(this->location);
 	//theInputs.update(window, theEvent);
 	currentMap.update(window);
 	

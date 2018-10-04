@@ -6,10 +6,11 @@ TileOptions::TileOptions()
 	this->x = 20.0f;
 	this->cap = 20;
 	this->from = 0;
-	this->end = 10;
+	this->nrOfShowing = 15;
+	this->end = this->nrOfShowing;
 	this->nrOfTiles = 0;
 	this->currentShowing = 0;
-	this->showingtiles = new Tile[10];
+	this->showingtiles = new Tile[this->nrOfShowing];
 	this->leftRight = new Tile[2];
 	this->allTiles = new Tile[this->cap];
 }
@@ -25,7 +26,7 @@ void TileOptions::addTileTexture(int textureRectPos)//color to texture
 {
 	if (this->nrOfTiles == this->cap) //extendurr
 	{
-		this->cap += 10;
+		this->cap += this->nrOfShowing;
 		Tile* temp = new Tile[this->cap];
 		for (int i = 0; i < this->nrOfTiles; i++)
 		{
@@ -39,14 +40,14 @@ void TileOptions::addTileTexture(int textureRectPos)//color to texture
 	//this->allTiles[this->nrOfTiles].setTexture(&text);
 	//this->allTiles[this->nrOfTiles].setTextureRect(textureRectPos);
 	//För att visa de första 
-	if (this->nrOfTiles < 10)
+	if (this->nrOfTiles < this->nrOfShowing)
 	{
 		this->showingtiles[this->nrOfTiles] = this->allTiles[this->nrOfTiles];
 	}
-	if (this->nrOfTiles == 10)
+	if (this->nrOfTiles == this->nrOfShowing)
 	{
 		this->currentShowing = 1;
-		this->from = 10;
+		this->from = this->nrOfShowing;
 	}
 	//
 
@@ -63,12 +64,12 @@ void TileOptions::changeShowingTiles()
 	if (this->end == this->nrOfTiles)
 	{
 		this->from = 0;
-		this->end = 10;
+		this->end = this->nrOfShowing;
 		this->currentShowing = 0;
 	}
-	if (this->nrOfTiles - (10 * this->currentShowing) > 10)
+	if (this->nrOfTiles - (this->nrOfShowing * this->currentShowing) > this->nrOfShowing)
 	{
-		this->end = (1 + this->currentShowing) * 10;
+		this->end = (1 + this->currentShowing) * this->nrOfShowing;
 	}
 	else
 	{
@@ -94,13 +95,13 @@ sf::RectangleShape & TileOptions::getRectFromTiles(const int pos)
 void TileOptions::drawCurrentTiles(sf::RenderWindow & window)
 {
 	int numOfShow = 0;
-	if (this->end % 10 == 0)
+	if (this->end %this->nrOfShowing == 0)
 	{
-		numOfShow = 10;
+		numOfShow = this->nrOfShowing;
 	}
 	else
 	{
-		numOfShow = this->end % 10;
+		numOfShow = this->end % this->nrOfShowing;
 	}
 	for (int i = 0; i < numOfShow; i++)
 	{
@@ -111,13 +112,13 @@ void TileOptions::drawCurrentTiles(sf::RenderWindow & window)
 void TileOptions::setPosition(float x, float y)
 {
 	int numOfShow = 0;
-	if (this->end % 10 == 0)
+	if (this->end % this->nrOfShowing == 0)
 	{
-		numOfShow = 10;
+		numOfShow = this->nrOfShowing;
 	}
 	else
 	{
-		numOfShow = this->end % 10;
+		numOfShow = this->end % this->nrOfShowing;
 	}
 	for (int i = 0; i < numOfShow; i++)
 	{
@@ -146,13 +147,13 @@ Tile TileOptions::getTile(int pos)
 int TileOptions::getNrOfCurrentTiles() const
 {
 	int numOfShow = 0;
-	if (this->end % 10 == 0)
+	if (this->end % this->nrOfShowing == 0)
 	{
-		numOfShow = 10;
+		numOfShow = this->nrOfShowing;
 	}
 	else
 	{
-		numOfShow = this->end % 10;
+		numOfShow = this->end % this->nrOfShowing;
 	}
 	return numOfShow;
 }

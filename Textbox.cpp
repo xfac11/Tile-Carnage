@@ -4,7 +4,8 @@ Textbox::Textbox()
 {
 	setSize(sf::Vector2f(500, 40));
 	setFillColor(sf::Color::White);
-
+	this->boxTexture.loadFromFile("Textures/TextBoxTexture.png");
+	setTexture(&this->boxTexture);
 	this->theInfo = "";
 	this->theFont.loadFromFile("Font/PressStart2P.ttf");
 	this->theText.setFont(theFont);
@@ -44,7 +45,7 @@ void Textbox::update(sf::RenderWindow & window, sf::Event & theEvent, sf::View &
 {
 	//this->setPosition(sf::Vector2f(100, 100)); //textbox fix view.getCenter();
 	setPosition(view.getCenter().x-view.getSize().x/2+10.0f,(view.getCenter().y-view.getSize().y/2)+50.0f);
-	this->theText.setPosition(getPosition());
+	this->theText.setPosition(getPosition()+sf::Vector2f(1.f,10.f));
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && mouse.getGlobalBounds().intersects(getGlobalBounds()))
 		this->typeMode = true;
 	else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

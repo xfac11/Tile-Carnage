@@ -15,6 +15,9 @@ private:
 	bool isRightClick;
 	bool tileChange;
 
+	sf::RectangleShape location;
+	sf::Texture textureLocation;
+
 	TileType currentTileType;
 	int currentTileTypeNr;
 	sf::Text currentTileTypeText;
@@ -37,8 +40,11 @@ private:
 	float windowY(float size);
 
 	sf::RectangleShape saveRect;
+	sf::Texture textureSaveRect;
 	sf::RectangleShape loadRect;
+	sf::Texture textureLoadRect;
 	sf::RectangleShape hudForLoadNSaveNText;
+	sf::Texture textureHudLoadSave;
 	Textbox textBox;
 
 	bool temp;

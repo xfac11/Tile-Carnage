@@ -8,7 +8,7 @@ private:
 	std::string theInfo;
 	sf::Font theFont;
 	sf::Text theText;
-
+	sf::Texture boxTexture;
 	bool typeMode;
 	bool isPressed;
 public:

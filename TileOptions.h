@@ -22,6 +22,7 @@ private:
 	int from;
 	int end;
 	int currentShowing;
+	int nrOfShowing;
 	float y;
 	float x;
 	Tile* showingtiles;
