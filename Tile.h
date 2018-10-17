@@ -7,10 +7,10 @@
 class Tile : public sf::RectangleShape
 {
 private:
-	sf::Texture theTexture;
+	sf::Texture thetexture;
 	std::string textureName;
-	std::string stringForTextType;
-	sf::Text typeText;
+	std::string stringFortextType;
+	sf::Text typetext;
 	TileType theType;
 	int xID, yID;
 	Destination theDest;
@@ -26,19 +26,19 @@ public:
 	Tile(int imageId);
 	void operator=(const Tile & obj);
 	//Tile(); //konstuktor för spritesheet
-	//Tile(int xID, int yID, sf::Texture & theTexture, TileType theType, Destination theDest);
+	//Tile(int xID, int yID, sf::texture & thetexture, TileType theType, Destination theDest);
 	Tile();
 	virtual~Tile();
 	int getXID()const;
 	int getYID()const;
 	void setTileType(TileType theType);
 	TileType getTileType()const;
-	std::string getTextureName()const;
+	std::string gettextureName()const;
 	void draw(sf::RenderWindow & window);
 	int getImageId()const;
-	void updateTypeTextPos();
+	void updateTypetextPos();
 	// draw itself
 	//New with sprite
-	//sf::Vector2i getTextureRectPos()const;
+	//sf::Vector2i gettextureRectPos()const;
 };
 #endif // !TILE_H

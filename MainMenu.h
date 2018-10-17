@@ -21,20 +21,20 @@ public:
 	MainMenu(std::string fileName);
 	MainMenu();
 	virtual~MainMenu();
-	void addText(std::string text);
-	void changeText(Direction dir);
-	void changeText();
+	void addtext(std::string text);
+	void changetext(Direction dir);
+	void changetext();
 	void movementForFire(sf::RenderWindow & window,float deltaTime);
-	void drawText(sf::RenderWindow & window,float deltaTime);
+	void drawtext(sf::RenderWindow & window,float deltaTime);
 	void setPosition(sf::Vector2f pos,float space);
-	int getCurrentText()const;
+	int getCurrenttext()const;
 	Selected getCurrentSelected()const;
 private:
 	sf::Font font;
 	sf::Text* text;
-	int nrOfTexts;
+	int nrOftexts;
 	int cap;
-	int currentText;
+	int currenttext;
 	Selected state;
 	bool upButton;
 	bool downButton;

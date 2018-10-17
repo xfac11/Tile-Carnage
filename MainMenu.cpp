@@ -4,11 +4,11 @@ MainMenu::MainMenu(std::string fileName)
 {
 	this->upButton = false;
 	this->downButton = false;
-	this->currentText = 0;
-	this->state = StartTest;//=currentText
+	this->currenttext = 0;
+	this->state = StartTest;//=currenttext
 	this->font.loadFromFile(fileName);
 	this->text = new sf::Text[5];
-	this->nrOfTexts = 4;
+	this->nrOftexts = 4;
 	this->cap = 5;
 	for (int i = 0; i < this->cap; i++)
 	{
@@ -27,14 +27,14 @@ MainMenu::MainMenu()
 	//this->box.setFillColor(sf::Color(137,124,124));
 	this->upButton = false;
 	this->downButton = false;
-	this->currentText = 0;
-	this->textForBox.loadFromFile("Textures/MainMenuScreen_Shit.png");
+	this->currenttext = 0;
+	this->textForBox.loadFromFile("textures/MainMenuScreen_Shit.png");
 	this->box.setTexture(this->textForBox);
 	//this->box.setColor(sf::Color(100,100,100));
-	this->state = StartTest;//=currentText
+	this->state = StartTest;//=currenttext
 	this->font.loadFromFile("Font/PressStart2P.ttf");
 	this->text = new sf::Text[5];
-	this->nrOfTexts = 4;
+	this->nrOftexts = 4;
 	this->cap = 5;
 	for (int i = 0; i < this->cap; i++)
 	{
@@ -53,72 +53,72 @@ MainMenu::~MainMenu()
 	delete[] this->text;
 }
 
-void MainMenu::addText(std::string text)
+void MainMenu::addtext(std::string text)
 {
-	if (this->nrOfTexts == this->cap)
+	if (this->nrOftexts == this->cap)
 	{
 		this->cap += 5;
-		sf::Text* tempText = new sf::Text[this->cap];
-		for (int i = 0; i < this->nrOfTexts; i++)
+		sf::Text* temptext = new sf::Text[this->cap];
+		for (int i = 0; i < this->nrOftexts; i++)
 		{
-			tempText[i] = this->text[i];
+			temptext[i] = this->text[i];
 		}
 		delete[] this->text;
-		this->text = tempText;
+		this->text = temptext;
 	}
-	this->text[this->nrOfTexts] = sf::Text(text,this->font);
-	this->nrOfTexts++;
+	this->text[this->nrOftexts] = sf::Text(text,this->font);
+	this->nrOftexts++;
 }
 
-void MainMenu::changeText(Direction dir)
+void MainMenu::changetext(Direction dir)
 {
-	this->text[this->currentText].setFillColor(sf::Color::White);
+	this->text[this->currenttext].setFillColor(sf::Color::White);
 	if (dir == DOWN)
 	{
-		if (currentText == this->nrOfTexts)
+		if (currenttext == this->nrOftexts)
 		{
-			this->currentText = 0;
+			this->currenttext = 0;
 			this->state = Selected(0);
 		}
 		else
 		{
-			this->currentText++;
-			this->state = Selected(this->currentText);
+			this->currenttext++;
+			this->state = Selected(this->currenttext);
 		}
 	}
 	else if (dir == UP)
 	{
-		if (currentText == 0)
+		if (currenttext == 0)
 		{
 			
-			this->currentText = this->nrOfTexts;
-			this->state = Selected(this->currentText);
+			this->currenttext = this->nrOftexts;
+			this->state = Selected(this->currenttext);
 		}
 		else
 		{
-			this->currentText--;
-			this->state = Selected(this->currentText);
+			this->currenttext--;
+			this->state = Selected(this->currenttext);
 		}
 	}
-	this->text[this->currentText].setFillColor(sf::Color::Red);
+	this->text[this->currenttext].setFillColor(sf::Color::Red);
 }
 
-void MainMenu::changeText()
+void MainMenu::changetext()
 {
-	this->text[this->currentText].setFillColor(sf::Color::White);
+	this->text[this->currenttext].setFillColor(sf::Color::White);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&&this->downButton==false)
 	{
 		this->downButton = true;
-		if (currentText == this->nrOfTexts-1)
+		if (currenttext == this->nrOftexts-1)
 		{
 			
-			this->currentText = 0;
-			this->state = Selected(this->currentText);
+			this->currenttext = 0;
+			this->state = Selected(this->currenttext);
 		}
 		else
 		{
-			this->currentText++;
-			this->state = Selected(this->currentText);
+			this->currenttext++;
+			this->state = Selected(this->currenttext);
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -132,15 +132,15 @@ void MainMenu::changeText()
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)&&this->upButton==false)
 	{
 		this->upButton = true;
-		if (currentText == 0)
+		if (currenttext == 0)
 		{
-			this->currentText = this->nrOfTexts-1;
-			this->state = Selected(this->currentText);
+			this->currenttext = this->nrOftexts-1;
+			this->state = Selected(this->currenttext);
 		}
 		else
 		{
-			this->currentText--;
-			this->state = Selected(this->currentText);
+			this->currenttext--;
+			this->state = Selected(this->currenttext);
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -151,8 +151,8 @@ void MainMenu::changeText()
 	{
 		this->upButton = false;
 	}
-	this->text[this->currentText].setFillColor(sf::Color::Red);
-	//std::cout << "menu:" << this->currentText << std::endl;
+	this->text[this->currenttext].setFillColor(sf::Color::Red);
+	//std::cout << "menu:" << this->currenttext << std::endl;
 }
 
 void MainMenu::movementForFire(sf::RenderWindow & window, float deltaTime)
@@ -167,12 +167,12 @@ void MainMenu::movementForFire(sf::RenderWindow & window, float deltaTime)
 	}
 }
 
-void MainMenu::drawText(sf::RenderWindow & window,float deltaTime)
+void MainMenu::drawtext(sf::RenderWindow & window,float deltaTime)
 {
 	//this->fireBall->movement(window);
 	window.draw(box);
 	this->fireBall->update(window, deltaTime);
-	for (int i = 0; i < this->nrOfTexts; i++)
+	for (int i = 0; i < this->nrOftexts; i++)
 	{
 		window.draw(this->text[i]);
 	}
@@ -183,7 +183,7 @@ void MainMenu::setPosition(sf::Vector2f pos,float space)
 {
 	float y = pos.y;
 	int maxChars = 0;
-	for (int i = 0; i < this->nrOfTexts; i++)
+	for (int i = 0; i < this->nrOftexts; i++)
 	{
 		sf::FloatRect textRect = text[i].getLocalBounds();
 		text[i].setOrigin(textRect.left + textRect.width / 2.0f,
@@ -196,16 +196,16 @@ void MainMenu::setPosition(sf::Vector2f pos,float space)
 		this->text[i].setCharacterSize(40);
 		y += this->text[i].getCharacterSize() + space;
 	}
-	//this->box.setSize(sf::Vector2f(31*this->text[maxChars].getString().getSize(), 10.0f+this->nrOfTexts*this->text[0].getCharacterSize() + (this->nrOfTexts - 1)*space));
+	//this->box.setSize(sf::Vector2f(31*this->text[maxChars].getString().getSize(), 10.0f+this->nrOftexts*this->text[0].getCharacterSize() + (this->nrOftexts - 1)*space));
 	//this->box.setSize(sf::Vector2f(1920.0f, 1080.0f));
 	this->box.setOrigin(sf::Vector2f(1920.0f/ 2, 1080.0f / 2));
 	this->box.setPosition(pos.x , pos.y );
 
 }
 
-int MainMenu::getCurrentText() const
+int MainMenu::getCurrenttext() const
 {
-	return this->currentText;
+	return this->currenttext;
 }
 
 Selected MainMenu::getCurrentSelected() const

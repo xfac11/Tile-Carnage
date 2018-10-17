@@ -9,6 +9,7 @@ void GameHandler::resizeView(const sf::RenderWindow & window, sf::View& view)
 
 GameHandler::GameHandler()
 {
+	//Här kanske texturen kan vara 
 	this->loopTimes = 0;
 	this->currentMenu = -1;
 	this->window.setFramerateLimit(60);
@@ -22,7 +23,7 @@ GameHandler::GameHandler()
 	this->deltaTime = 0;
 }
 
-GameHandler::~GameHandler()
+GameHandler::~GameHandler()	
 {
 	delete playTest;
 }
@@ -38,11 +39,11 @@ void GameHandler::updateMenu()
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && this->currentMenu == -1)
 	{
-		this->currentMenu = this->menu.getCurrentText();
+		this->currentMenu = this->menu.getCurrenttext();
 	}
 	if (this->currentMenu == -1)
 	{
-		menu.drawText(window,deltaTime);
+		menu.drawtext(window,deltaTime);
 	}
 	else if (this->currentMenu == StartTest)
 	{
@@ -89,7 +90,7 @@ void GameHandler::update()
 		//trycker upp eller ner. Endast när currentMenu är -1. För då är vi i menu
 		if (this->currentMenu == -1)
 		{
-			menu.changeText();
+			menu.changetext();
 		}
 		this->updateMenu();
 		//open map here??

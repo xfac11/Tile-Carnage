@@ -2,7 +2,7 @@
 #define MAPEDITOR_H
 #include "TileMap.h"
 #include"TileOptions.h"
-#include"Textbox.h"
+#include"textbox.h"
 #define BLOCKWIDTH 32.f //gör klass som håller alla define
 #define BLOCKHEIGHT 32.f
 class MapEditor
@@ -20,10 +20,11 @@ private:
 
 	TileType currentTileType;
 	int currentTileTypeNr;
-	sf::Text currentTileTypeText;
+	sf::Text currentTileTypetext;
 	std::string currentTileTypeString;
 	sf::Font tileTypeFont;
 
+	sf::Texture textureTileMenu;
 	sf::RectangleShape tileMenu;
 	sf::Texture arrow[4];
 	sf::RectangleShape theArrows[4];
@@ -43,9 +44,9 @@ private:
 	sf::Texture textureSaveRect;
 	sf::RectangleShape loadRect;
 	sf::Texture textureLoadRect;
-	sf::RectangleShape hudForLoadNSaveNText;
+	sf::RectangleShape hudForLoadNSaveNtext;
 	sf::Texture textureHudLoadSave;
-	Textbox textBox;
+	textbox textBox;
 
 	bool temp;
 	sf::Vector2i getMouseID();

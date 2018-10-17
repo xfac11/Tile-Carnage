@@ -57,11 +57,15 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 	this->theArrows[2].setPosition(view.getCenter().x, view.getCenter().y + view.getSize().y / 2 - 50);
 	this->theArrows[3].setPosition(view.getCenter().x - view.getSize().x / 2 + 20, view.getCenter().y);
 
-	this->hudForLoadNSaveNText.setPosition(this->textBox.getPosition().x-10.0f,this->textBox.getPosition().y-15.0f);
+	this->hudForLoadNSaveNtext.setPosition(this->textBox.getPosition().x-10.0f,this->textBox.getPosition().y-15.0f);
 	this->loadRect.setPosition(this->textBox.getPosition().x +100,this->textBox.getPosition().y + this->loadRect.getSize().y+20.0f);
 	this->saveRect.setPosition(this->loadRect.getPosition().x + this->saveRect.getSize().x + 50.0f, this->textBox.getPosition().y + this->saveRect.getSize().y + 20.0f);
 
 	this->location.setPosition(sf::Vector2f(getMouseID().x*32.f, getMouseID().y*32.f));
+	//Update tileOptions position
+	float xPosTileMenu = this->tileMenu.getPosition().x;
+	float yPosTileMenu = this->tileMenu.getPosition().y;
+	this->theTileOptions.setPosition(xPosTileMenu,yPosTileMenu);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && this->tileChange == false&&this->textBox.getTypeMode()==false)
 	{
@@ -76,29 +80,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 	{
 		this->tileChange = false;
 	}
-	float x = 20.0f;
-	float y = 42.f;
-	//this->theTileOptions.setPosition(this->tileMenu.getPosition().x,this->tileMenu.getPosition().y);
-	for (int i = 0; i < this->theTileOptions.getNrOfCurrentTiles(); i++)
-	{
-		//this->showingtiles[i].setPosition(this->x + x, this->y + y);
-		this->theTileOptions.getRectFromTiles(i).setPosition(x + this->tileMenu.getPosition().x, y + this->tileMenu.getPosition().y);
-		if (x >= 188.0f && y >= 85.f)
-		{
-			x = 20.0f;
-			y = 42.f;
-		}
-		else if (x >= 188.0f)
-		{
-			x = 20.0f;
-			y += 42.f;
-		}
-		else
-		{
-			x += 20.0f+ 32.0f;
-		}
-	  
-	}
+	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		if (mouseOnObject(saveRect))
@@ -174,7 +156,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 				//this->tempBlock->setFillColor(theTileOptions.getRectFromTiles(i).getFillColor());
 				//this->tempBlock->setOrigin(BLOCKWIDTH / 2, BLOCKHEIGHT / 2);
 				this->tempBlock->setPosition(this->theMouse.getPosition());
-				this->currentTileTypeText.setPosition(this->tempBlock->getPosition() + sf::Vector2f(7.0f, 0.0f));
+				this->currentTileTypetext.setPosition(this->tempBlock->getPosition() + sf::Vector2f(7.0f, 0.0f));
 				pos = i;
 				this->isMovable = true;
 				if (this->isMovable == true) //can remove?
@@ -192,7 +174,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 			this->mouseOnObject(this->saveRect)==false&&
 			this->mouseOnObject(this->loadRect)==false&&
 			this->mouseOnObject(this->textBox)==false&&
-			this->mouseOnObject(this->hudForLoadNSaveNText)==false)
+			this->mouseOnObject(this->hudForLoadNSaveNtext)==false)
 			//&&this->mouseOnObject(this->typeBlock)//&& mouseOnObject(theTileOptions.getRectFromTiles(i)) == false)
 		{
 
@@ -219,7 +201,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 			////this->tempBlock->setFillColor(theTileOptions.getRectFromTiles(i).getFillColor());
 			////this->tempBlock->setOrigin(BLOCKWIDTH / 2, BLOCKHEIGHT / 2);
 			//this->tempBlock->setPosition(this->theMouse.getPosition());
-			//this->currentTileTypeText.setPosition(this->tempBlock->getPosition() + sf::Vector2f(7.0f, 0.0f));
+			//this->currentTileTypetext.setPosition(this->tempBlock->getPosition() + sf::Vector2f(7.0f, 0.0f));
 		}
 
 		else
@@ -243,7 +225,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 		this->currentTileTypeNr += 1;
 		this->currentTileType =TileType(this->currentTileTypeNr);
 		this->currentTileTypeString = ToString(this->currentTileType);
-		this->currentTileTypeText.setString(this->currentTileTypeString[0]);
+		this->currentTileTypetext.setString(this->currentTileTypeString[0]);
 		this->isRightClick = true;
 	}
 	else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -279,7 +261,7 @@ void MapEditor::updateHUD(sf::View &view, float deltaTime)
 
 MapEditor::MapEditor()
 {
-	//this->hudForLoadNSaveNText.setFillColor(sf::Color::Black);
+	//this->hudForLoadNSaveNtext.setFillColor(sf::Color::Black);
 	this->speedForMovingCamera = 500.0f;
 	this->prevId = 0;
 	this->temp = false;
@@ -291,13 +273,15 @@ MapEditor::MapEditor()
 	this->currentTileTypeString = ToString(Normal);
 	this->currentTileType = Normal;
 	this->tileTypeFont.loadFromFile("Font/PressStart2P.ttf");
-	this->currentTileTypeText.setFont(this->tileTypeFont);
-	this->currentTileTypeText.setString(this->currentTileTypeString[0]);
-	this->currentTileTypeText.setCharacterSize(20);
+	this->currentTileTypetext.setFont(this->tileTypeFont);
+	this->currentTileTypetext.setString(this->currentTileTypeString[0]);
+	this->currentTileTypetext.setCharacterSize(20);
 	//ui
 	//tile menu
-	this->tileMenu.setFillColor(sf::Color(192, 192, 192)); //silver
+	this->textureTileMenu.loadFromFile("textures/tileBar.png");
+	//this->tileMenu.setFillColor(sf::Color(192, 192, 192)); //silver
 	this->tileMenu.setSize(sf::Vector2f(windowX(500), windowY(350)));
+	this->tileMenu.setTexture(&this->textureTileMenu);
 	//Location mouse
 	this->location.setSize(sf::Vector2f(32.0f, 32.0f));
 	this->textureLocation.loadFromFile("textures/test.png");
@@ -319,43 +303,44 @@ MapEditor::MapEditor()
 	//menu tile choices
 	
 	//this->textureForAll.loadFromFile("Ground_Sprites.png");
-	theTileOptions.addTileTexture(0);
-	theTileOptions.addTileTexture(1);
-	theTileOptions.addTileTexture(2);
-	theTileOptions.addTileTexture(3);
-	theTileOptions.addTileTexture(4);
-	theTileOptions.addTileTexture(5);
-	theTileOptions.addTileTexture(6);
-	theTileOptions.addTileTexture(7);
-	theTileOptions.addTileTexture(8);
-	theTileOptions.addTileTexture(9);
-	theTileOptions.addTileTexture(10);
-	theTileOptions.addTileTexture(11);
-	theTileOptions.addTileTexture(12);
-	theTileOptions.addTileTexture(13);
-	theTileOptions.addTileTexture(14);
-	theTileOptions.addTileTexture(15);
+	theTileOptions.addTiletexture(0);
+	theTileOptions.addTiletexture(1);
+	theTileOptions.addTiletexture(2);
+	theTileOptions.addTiletexture(3);
+	theTileOptions.addTiletexture(4);
+	theTileOptions.addTiletexture(5);
+	theTileOptions.addTiletexture(6);
+	theTileOptions.addTiletexture(7);
+	theTileOptions.addTiletexture(8);
+	theTileOptions.addTiletexture(9);
+	theTileOptions.addTiletexture(10);
+	theTileOptions.addTiletexture(11);
+	theTileOptions.addTiletexture(12);
+	theTileOptions.addTiletexture(13);
+	theTileOptions.addTiletexture(14);
+	theTileOptions.addTiletexture(15);
+	
+	
+	//theTileOptions.addTiletexture(this->textureForAll, sf::IntRect(32 * 0, 32 * 0, 32, 32));
+	//theTileOptions.addTiletexture(this->textureForAll, sf::IntRect(32 * 0, 32 * 0, 32, 32));
 
-	//theTileOptions.addTileTexture(this->textureForAll, sf::IntRect(32 * 0, 32 * 0, 32, 32));
-	//theTileOptions.addTileTexture(this->textureForAll, sf::IntRect(32 * 0, 32 * 0, 32, 32));
 
 
-
-	/*theTileOptions.addTileTexture(sf::Color::Blue);
-	theTileOptions.addTileTexture(sf::Color::Blue);
-	theTileOptions.addTileTexture(sf::Color::Blue);
-	theTileOptions.addTileTexture(sf::Color::Blue);
-	theTileOptions.addTileTexture(sf::Color::Green);
-	theTileOptions.addTileTexture(sf::Color::Green);
-	theTileOptions.addTileTexture(sf::Color::Green);
-	theTileOptions.addTileTexture(sf::Color::Green);
-	theTileOptions.addTileTexture(sf::Color::Green);
-	theTileOptions.addTileTexture(sf::Color::Red);
-	theTileOptions.addTileTexture(sf::Color::Red);
-	theTileOptions.addTileTexture(sf::Color::Red);
-	theTileOptions.addTileTexture(sf::Color::Red);
-	theTileOptions.addTileTexture(sf::Color::Red);
-	theTileOptions.addTileTexture(sf::Color::Yellow);*/
+	/*theTileOptions.addTiletexture(sf::Color::Blue);
+	theTileOptions.addTiletexture(sf::Color::Blue);
+	theTileOptions.addTiletexture(sf::Color::Blue);
+	theTileOptions.addTiletexture(sf::Color::Blue);
+	theTileOptions.addTiletexture(sf::Color::Green);
+	theTileOptions.addTiletexture(sf::Color::Green);
+	theTileOptions.addTiletexture(sf::Color::Green);
+	theTileOptions.addTiletexture(sf::Color::Green);
+	theTileOptions.addTiletexture(sf::Color::Green);
+	theTileOptions.addTiletexture(sf::Color::Red);
+	theTileOptions.addTiletexture(sf::Color::Red);
+	theTileOptions.addTiletexture(sf::Color::Red);
+	theTileOptions.addTiletexture(sf::Color::Red);
+	theTileOptions.addTiletexture(sf::Color::Red);
+	theTileOptions.addTiletexture(sf::Color::Yellow);*/
 	//mouse 
 	this->theMouse.setSize(sf::Vector2f(5.f, 5.f));
 	this->theMouse.setFillColor(sf::Color::White);
@@ -365,16 +350,16 @@ MapEditor::MapEditor()
 
 	//Save & load
 	this->textureHudLoadSave.loadFromFile("textures/HudForLoadnSave.png");
-	this->textureLoadRect.loadFromFile("textures/LoadTexture.png");
-	this->textureSaveRect.loadFromFile("textures/SaveTexture.png");
+	this->textureLoadRect.loadFromFile("textures/Loadtexture.png");
+	this->textureSaveRect.loadFromFile("textures/Savetexture.png");
 	this->saveRect.setSize(sf::Vector2f(100.0f, 50.0f));
 	this->saveRect.setTexture(&this->textureSaveRect);
 	//this->saveRect.setFillColor(sf::Color::Magenta);
 	this->loadRect.setSize(sf::Vector2f(100.0f, 50.0f));
 	this->loadRect.setTexture(&this->textureLoadRect);
 	//this->loadRect.setFillColor(sf::Color::Green);
-	this->hudForLoadNSaveNText.setSize(sf::Vector2f(this->textBox.getSize().x+20.0f, (this->saveRect.getSize().y*3)));// - this->textBox.getPosition().y));
-	this->hudForLoadNSaveNText.setTexture(&this->textureHudLoadSave);
+	this->hudForLoadNSaveNtext.setSize(sf::Vector2f(this->textBox.getSize().x+20.0f, (this->saveRect.getSize().y*3)));// - this->textBox.getPosition().y));
+	this->hudForLoadNSaveNtext.setTexture(&this->textureHudLoadSave);
 }
 
 MapEditor::~MapEditor()
@@ -401,7 +386,7 @@ void MapEditor::draw(sf::RenderWindow & window, float deltaTime, sf::View &view,
 	if (isMovable == true)
 	{
 		tempBlock->setPosition(theMouse.getPosition());
-		this->currentTileTypeText.setPosition(this->tempBlock->getPosition() + sf::Vector2f(7.0f, 0.0f));
+		this->currentTileTypetext.setPosition(this->tempBlock->getPosition() + sf::Vector2f(7.0f, 0.0f));
 	}
 	window.draw(this->location);
 	//theInputs.update(window, theEvent);
@@ -410,7 +395,7 @@ void MapEditor::draw(sf::RenderWindow & window, float deltaTime, sf::View &view,
 	
 	this->textBox.update(window, theEvent, view, this->theMouse);
 	updateHUD(view, deltaTime);
-	window.draw(this->hudForLoadNSaveNText);
+	window.draw(this->hudForLoadNSaveNtext);
 	this->textBox.draw(window);
 	window.draw(tileMenu);
 	
@@ -423,7 +408,7 @@ void MapEditor::draw(sf::RenderWindow & window, float deltaTime, sf::View &view,
 	window.draw(*tempBlock);
 	if (this->isMovable)
 	{
-		window.draw(this->currentTileTypeText);
+		window.draw(this->currentTileTypetext);
 	}
 	window.draw(theMouse);
 }

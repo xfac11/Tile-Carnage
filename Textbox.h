@@ -1,22 +1,22 @@
-#ifndef TEXTBOX_H
-#define TEXTBOX_H
+#ifndef texTBOX_H
+#define texTBOX_H
 #include <SFML\Graphics.hpp>
 #include <iostream>
-class Textbox : public sf::RectangleShape
+class textbox : public sf::RectangleShape
 {
 private:
 	std::string theInfo;
 	sf::Font theFont;
-	sf::Text theText;
-	sf::Texture boxTexture;
+	sf::Text thetext;
+	sf::Texture boxtexture;
 	bool typeMode;
 	bool isPressed;
 public:
-	Textbox();
-	~Textbox();
+	textbox();
+	~textbox();
 	std::string getString()const;
 	bool getTypeMode()const;
-	void setTextSize(const int size);
+	void settextSize(const int size);
 	void draw(sf::RenderWindow & window);
 	void update(sf::RenderWindow & window, sf::Event & theEvent, sf::View & view, sf::RectangleShape mouse);
 };

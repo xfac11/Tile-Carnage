@@ -22,7 +22,7 @@ TileOptions::~TileOptions()
 	delete[] this->allTiles;
 }
 
-void TileOptions::addTileTexture(int textureRectPos)//color to texture 
+void TileOptions::addTiletexture(int textureRectPos)//color to texture 
 {
 	if (this->nrOfTiles == this->cap) //extendurr
 	{
@@ -37,8 +37,8 @@ void TileOptions::addTileTexture(int textureRectPos)//color to texture
 	}
 
 	this->allTiles[this->nrOfTiles] = Tile(textureRectPos);
-	//this->allTiles[this->nrOfTiles].setTexture(&text);
-	//this->allTiles[this->nrOfTiles].setTextureRect(textureRectPos);
+	//this->allTiles[this->nrOfTiles].settexture(&text);
+	//this->allTiles[this->nrOfTiles].settextureRect(textureRectPos);
 	//För att visa de första 
 	if (this->nrOfTiles < this->nrOfShowing)
 	{
@@ -111,37 +111,49 @@ void TileOptions::drawCurrentTiles(sf::RenderWindow & window)
 
 void TileOptions::setPosition(float x, float y)
 {
-	int numOfShow = 0;
-	if (this->end % this->nrOfShowing == 0)
+	float startX = 30.f;
+	float xPos = startX;
+	float startY = 42.f;
+	float yPos = startY;
+
+	//this->theTileOptions.setPosition(this->tileMenu.getPosition().x,this->tileMenu.getPosition().y);
+	for (int i = 0; i < this->nrOfShowing; i++)
 	{
-		numOfShow = this->nrOfShowing;
-	}
-	else
-	{
-		numOfShow = this->end % this->nrOfShowing;
-	}
-	for (int i = 0; i < numOfShow; i++)
-	{
-		this->showingtiles[i].setPosition(this->x+x, this->y+y);
-		if (this->x >= 188.0f&&this->y>=768.0f)
+
+		this->showingtiles[i].setPosition(x + xPos, y + yPos);
+
+		//this->theTileOptions.getTileFromAll(i).setPosition(x + this->tileMenu.getPosition().x, this->tileMenu.getPosition().y);
+		if (xPos >= (startX + 32.f) * 4 && yPos >= 85.f)
 		{
-			this->x = 20.0f;
-			this->y = 726.0f;
+			xPos = startX;
+			yPos = startY;
 		}
-		else if (this->x >= 188.0f)
+		else if (xPos >= (startX + 32.f) * 4)
 		{
-			this->y = 768.0f;
+			xPos = startX;
+			yPos += startY;
 		}
 		else
 		{
-			this->x += 20.0f + 32.0f;
+			xPos += startX + 32.0f;
 		}
+
 	}
 }
 
-Tile TileOptions::getTile(int pos)
+Tile & TileOptions::getTile(int pos)
 {
 	return this->showingtiles[pos];
+}
+
+Tile & TileOptions::getTileFromAll(const int pos)
+{
+	return this->allTiles[pos];
+}
+
+int TileOptions::getNrOfAllTiles() const
+{
+	return this->nrOfTiles;
 }
 
 int TileOptions::getNrOfCurrentTiles() const

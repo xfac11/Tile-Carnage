@@ -135,6 +135,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Destination.h" />
     <ClInclude Include="GameHandler.h" />
+    <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="MenuState.h" />
@@ -152,6 +153,7 @@
     <ClCompile Include="Animate.cpp" />
     <ClCompile Include="Destination.cpp" />
     <ClCompile Include="GameHandler.cpp" />
+    <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />

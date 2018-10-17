@@ -38,7 +38,7 @@ TileMap::TileMap(std::string loadMap) //
 	20  //nrOf
 	32  //cap 
 	3 3 3 3 3 ? ? ?  //layout  //nr istype of tile, but tile load its name as texture6
-	3 1 2 1 3 ? ? ? // Tile(xID: int, yId: int, Texture: Texture , type: TileType)
+	3 1 2 1 3 ? ? ? // Tile(xID: int, yId: int, texture: texture , type: TileType)
 	3 1 1 1 3 ? ? ?
 	3 3 4 3 3 ? ? ?
 	
@@ -132,7 +132,7 @@ void TileMap::changeSizeOfAllTiles(float x, float y)
 		this->theTiles[i]->setPosition(this->theTiles[i]->getXID()*x, this->theTiles[i]->getYID()*y);
 		this->theTiles[i]->setSize(sf::Vector2f(x, y));
 		this->theTiles[i]->setOrigin(sf::Vector2f(x / 2.f, y / 2.f));
-		this->theTiles[i]->updateTypeTextPos();
+		this->theTiles[i]->updateTypetextPos();
 	}
 }
 
@@ -196,15 +196,15 @@ bool TileMap::loadSheet(std::string loadMap) //use this, decide better name
 		{
 			input >> xValue;
 			input >> yValue;
-			//input >> theTexture;
+			//input >> thetexture;
 			input >> typeInt;
 			tileType = TileType(typeInt);
-			//input >> xTexturePos;
-			//input >> yTexturePos;
+			//input >> xtexturePos;
+			//input >> ytexturePos;
 			input >> textureId;
-			//std::cout << "Tile(" << xValue << ", " << yValue << ", " << theTexture << ", " << tileType << ");" << std::endl;
+			//std::cout << "Tile(" << xValue << ", " << yValue << ", " << thetexture << ", " << tileType << ");" << std::endl;
 
-			theTiles[i] = new Tile(xValue, yValue, tileType, textureId); //sf::IntRect(xTexturePos * 32, yTexturePos * 32, 32, 32));
+			theTiles[i] = new Tile(xValue, yValue, tileType, textureId); //sf::IntRect(xtexturePos * 32, ytexturePos * 32, 32, 32));
 			//theTiles[i]->setPosition(xValue*theTiles[i]->getSize().x + theTiles[i]->getSize().x /2, yValue*theTiles[i]->getSize().y + theTiles[i]->getSize().y / 2);
 		}
 		input.close();

@@ -7,14 +7,16 @@ class TileOptions
 public:
 	TileOptions();
 	~TileOptions();
-	//void addTileTexture(sf::Texture *&texture);
+	//void addTiletexture(sf::texture *&texture);
 	//Change to texture from color
-	void addTileTexture(int textureRectPos);
+	void addTiletexture(int textureRectPos);
 	void changeShowingTiles();
 	sf::RectangleShape & getRectFromTiles(const int pos);
 	void drawCurrentTiles(sf::RenderWindow & window);
 	void setPosition(float x, float y);
-	Tile getTile(int pos);
+	Tile & getTile(int pos);
+	Tile & getTileFromAll(const int pos);
+	int getNrOfAllTiles()const;
 	int getNrOfCurrentTiles()const;
 private:
 	int nrOfTiles;
